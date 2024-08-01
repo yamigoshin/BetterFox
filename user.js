@@ -10,13 +10,13 @@
 /****************************************************************************
  * Betterfox                                                                *
  * "Ad meliora"                                                             *
- * version: 122                                                             *
+ * version: 126                                                             *
  * url: https://github.com/yokoffing/Betterfox                              *
-****************************************************************************/
+ ****************************************************************************/
 
 /****************************************************************************
  * SECTION: FASTFOX                                                         *
-****************************************************************************/
+ ****************************************************************************/
 /** GENERAL ***/
 user_pref("content.notify.interval", 100000);
 
@@ -37,32 +37,30 @@ user_pref("media.cache_resume_threshold", 3600);
 user_pref("image.mem.decode_bytes_at_a_time", 32768);
 
 /** NETWORK ***/
-user_pref("network.buffer.cache.size", 262144);
-user_pref("network.buffer.cache.count", 128);
 user_pref("network.http.max-connections", 1800);
 user_pref("network.http.max-persistent-connections-per-server", 10);
 user_pref("network.http.max-urgent-start-excessive-connections-per-host", 5);
 user_pref("network.http.pacing.requests.enabled", false);
 user_pref("network.dnsCacheExpiration", 3600);
-user_pref("network.dns.max_high_priority_threads", 8);
 user_pref("network.ssl_tokens_cache_capacity", 10240);
 
 /** SPECULATIVE LOADING ***/
 user_pref("network.dns.disablePrefetch", true);
+user_pref("network.dns.disablePrefetchFromHTTPS", true);
 user_pref("network.prefetch-next", false);
 user_pref("network.predictor.enabled", false);
+user_pref("network.predictor.enable-prefetch", false);
 
 /** EXPERIMENTAL ***/
 user_pref("layout.css.grid-template-masonry-value.enabled", true);
 user_pref("dom.enable_web_task_scheduling", true);
-user_pref("layout.css.has-selector.enabled", true);
 user_pref("dom.security.sanitizer.enabled", true);
 
 /****************************************************************************
  * SECTION: SECUREFOX                                                       *
-****************************************************************************/
+ ****************************************************************************/
 /** TRACKING PROTECTION ***/
-user_pref("browser.contentblocking.category", "strict");
+user_pref("browser.contentblocking.category", "standard");
 user_pref("urlclassifier.trackingSkipURLs", "*.reddit.com, *.twitter.com, *.twimg.com, *.tiktok.com");
 user_pref("urlclassifier.features.socialtracking.skipURLs", "*.instagram.com, *.twitter.com, *.twimg.com");
 user_pref("network.cookie.sameSite.noneRequiresSecure", true);
@@ -86,9 +84,10 @@ user_pref("browser.privatebrowsing.forceMediaMemoryCache", true);
 user_pref("browser.sessionstore.interval", 60000);
 
 /** SHUTDOWN & SANITIZING ***/
-user_pref("privacy.history.custom", true);
+user_pref("privacy.history.custom", false);
 
 /** SEARCH / URL BAR ***/
+user_pref("browser.urlbar.trimHttps", true);
 user_pref("browser.search.separatePrivateDefault.ui.enabled", true);
 user_pref("browser.urlbar.update2.engineAliasRefresh", true);
 user_pref("browser.search.suggest.enabled", false);
@@ -111,8 +110,6 @@ user_pref("editor.truncate_user_pastes", false);
 
 /** MIXED CONTENT + CROSS-SITE ***/
 user_pref("security.mixed_content.block_display_content", true);
-user_pref("security.mixed_content.upgrade_display_content", true);
-user_pref("security.mixed_content.upgrade_display_content.image", true);
 user_pref("pdfjs.enableScripting", false);
 user_pref("extensions.postDownloadThirdPartyPrompt", false);
 
@@ -132,7 +129,6 @@ user_pref("browser.safebrowsing.downloads.remote.enabled", false);
 /** MOZILLA ***/
 user_pref("permissions.default.desktop-notification", 2);
 user_pref("permissions.default.geo", 2);
-user_pref("geo.provider.network.url", "https://location.services.mozilla.com/v1/geolocate?key=%MOZILLA_API_KEY%");
 user_pref("permissions.manager.defaultsUrl", "");
 user_pref("webchannel.allowObject.urlWhitelist", "");
 
@@ -151,7 +147,6 @@ user_pref("toolkit.telemetry.firstShutdownPing.enabled", false);
 user_pref("toolkit.telemetry.coverage.opt-out", true);
 user_pref("toolkit.coverage.opt-out", true);
 user_pref("toolkit.coverage.endpoint.base", "");
-user_pref("browser.ping-centre.telemetry", false);
 user_pref("browser.newtabpage.activity-stream.feeds.telemetry", false);
 user_pref("browser.newtabpage.activity-stream.telemetry", false);
 
@@ -169,10 +164,11 @@ user_pref("browser.crashReports.unsubmittedCheck.autoSubmit2", false);
 user_pref("captivedetect.canonicalURL", "");
 user_pref("network.captive-portal-service.enabled", false);
 user_pref("network.connectivity-service.enabled", false);
+user_pref("dom.private-attribution.submission.enabled", false);
 
 /****************************************************************************
  * SECTION: PESKYFOX                                                        *
-****************************************************************************/
+ ****************************************************************************/
 /** MOZILLA UI ***/
 user_pref("browser.privatebrowsing.vpnpromourl", "");
 user_pref("extensions.getAddons.showPane", false);
@@ -232,54 +228,52 @@ user_pref("layout.word_select.eat_space_to_next_word", false);
 
 /****************************************************************************
  * START: MY OVERRIDES                                                      *
-****************************************************************************/
+ ****************************************************************************/
 // visit https://github.com/yokoffing/Betterfox/wiki/Common-Overrides
 // visit https://github.com/yokoffing/Betterfox/wiki/Optional-Hardening
 // Enter your personal overrides below this line:
-
-// PREF: restore login manager
-user_pref("signon.rememberSignons", true);
-
-// PREF: restore address and credit card manager
-user_pref("extensions.formautofill.addresses.enabled", true);
-user_pref("extensions.formautofill.creditCards.enabled", true);
 
 // PREF: restore Top Sites on New Tab page
 user_pref("browser.newtabpage.activity-stream.feeds.topsites", true); // Shortcuts
 user_pref("browser.newtabpage.activity-stream.default.sites", ""); // clear default topsites
 
-// PREF: remove sponsored content on New Tab page
-user_pref("browser.newtabpage.activity-stream.showSponsoredTopSites", false); // Sponsored shortcuts 
-user_pref("browser.newtabpage.activity-stream.feeds.section.topstories", false); // Recommended by Pocket
-user_pref("browser.newtabpage.activity-stream.showSponsored", false); // Sponsored Stories
-
 // PREF: restore search engine suggestions
 user_pref("browser.search.suggest.enabled", true);
 
-// PREF: disable Firefox Sync
-user_pref("identity.fxaccounts.enabled", false);
-
-// PREF: disable Firefox View
-user_pref("browser.tabs.firefox-view", false);
-user_pref("browser.tabs.firefox-view-next", false);
-user_pref("browser.tabs.firefox-view-newIcon", false); // needed?
-user_pref("browser.firefox-view.feature-tour", "{\"screen\":\"\",\"complete\":true}");
 
 
 /****************************************************************************
  * SECTION: SMOOTHFOX                                                       *
-****************************************************************************/
+ ****************************************************************************/
 // visit https://github.com/yokoffing/Betterfox/blob/main/Smoothfox.js
 // Enter your scrolling overrides below this line:
 
-// only sharpen scrolling
+/****************************************************************************************
+ * OPTION: INSTANT SCROLLING (SIMPLE ADJUSTMENT)                                       *
+ ****************************************************************************************/
+// recommended for 60hz+ displays
 user_pref("apz.overscroll.enabled", true); // DEFAULT NON-LINUX
-user_pref("mousewheel.min_line_scroll_amount", 10); // 10-40; adjust this number to your liking; default=5
-user_pref("general.smoothScroll.mouseWheel.durationMinMS", 80); // default=50
-user_pref("general.smoothScroll.currentVelocityWeighting", "0.15"); // default=.25
-user_pref("general.smoothScroll.stopDecelerationWeighting", "0.6"); // default=.4
-
+user_pref("general.smoothScroll", true); // DEFAULT
+user_pref("mousewheel.default.delta_multiplier_y", 275); // 250-400; adjust this number to your liking
+// Firefox Nightly only:
+// [1] https://bugzilla.mozilla.org/show_bug.cgi?id=1846935
+user_pref("general.smoothScroll.msdPhysics.enabled", false); // [FF122+ Nightly]
 
 /****************************************************************************
  * END: BETTERFOX                                                           *
-****************************************************************************/
+ ****************************************************************************/
+
+// Enable customChrome.css
+user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
+
+// Set UI density to normal
+user_pref("browser.uidensity", 0);
+
+// Enable SVG context-propertes
+user_pref("svg.context-properties.content.enabled", true);
+
+// Disable private window dark theme
+user_pref("browser.theme.dark-private-windows", false);
+
+// Enable rounded bottom window corners
+user_pref("widget.gtk.rounded-bottom-corners.enabled", true);
